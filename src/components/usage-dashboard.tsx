@@ -130,7 +130,7 @@ function StatCard({
       </p>
       <p
         className={cn(
-          "mt-2 font-mono text-2xl font-semibold tracking-tight",
+          "mt-2 font-mono text-xl font-semibold tracking-tight sm:text-2xl",
           accent ? "text-[#f54e00]" : "text-[#14120b]",
         )}
       >
@@ -197,8 +197,8 @@ function Panel({
   action?: ReactNode;
 }) {
   return (
-    <section className="rounded-xl border border-[#e4e4e0] bg-white p-4">
-      <div className="mb-4 flex flex-wrap items-start justify-between gap-3">
+    <section className="rounded-xl border border-[#e4e4e0] bg-white p-3 sm:p-4">
+      <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-start sm:justify-between">
         <div>
           <h2 className="text-sm font-semibold text-[#14120b]">{title}</h2>
           {description ? (
@@ -312,30 +312,40 @@ export function UsageDashboard({
     : null;
 
   return (
-    <div className="mx-auto max-w-7xl space-y-6 px-4 py-6 md:px-6">
-      <div className="flex flex-wrap items-start justify-between gap-4">
-        <div className="flex items-start gap-4">
+    <div className="mx-auto max-w-7xl space-y-5 px-4 py-4 safe-px sm:space-y-6 sm:py-6 md:px-6">
+      <div className="flex flex-col gap-4 sm:flex-row sm:flex-wrap sm:items-start sm:justify-between">
+        <div className="flex min-w-0 items-start gap-3 sm:gap-4">
           {account.avatarUrl ? (
             // eslint-disable-next-line @next/next/no-img-element
             <img
               src={account.avatarUrl}
               alt=""
-              className="h-16 w-16 rounded-full border border-[#e4e4e0] object-cover"
+              className="h-12 w-12 shrink-0 rounded-full border border-[#e4e4e0] object-cover sm:h-16 sm:w-16"
             />
           ) : null}
-          <div>
+          <div className="min-w-0">
             <p className="text-[10px] font-semibold uppercase tracking-[0.12em] text-[#989897]">
               Cursor usage dashboard
             </p>
-            <h1 className="mt-1 text-2xl font-semibold tracking-tight text-[#14120b]">
+            <h1 className="mt-1 truncate text-xl font-semibold tracking-tight text-[#14120b] sm:text-2xl">
               {account.displayName}
             </h1>
-            <p className="mt-1 text-sm text-[#6b6b66]">
-              @{account.handle}
-              {account.plan ? ` · ${account.plan}` : ""}
-              {account.email ? ` · ${account.email}` : ""}
+            <p className="mt-1 space-y-0.5 text-xs text-[#6b6b66] sm:text-sm">
+              <span className="block sm:inline">@{account.handle}</span>
+              {account.plan ? (
+                <span className="block sm:inline">
+                  <span className="hidden sm:inline"> · </span>
+                  {account.plan}
+                </span>
+              ) : null}
+              {account.email ? (
+                <span className="block truncate sm:inline">
+                  <span className="hidden sm:inline"> · </span>
+                  {account.email}
+                </span>
+              ) : null}
             </p>
-            <div className="mt-2 flex flex-wrap items-center gap-3 text-[11px] text-[#989897]">
+            <div className="mt-2 flex flex-col gap-1.5 text-[11px] text-[#989897] sm:flex-row sm:flex-wrap sm:items-center sm:gap-3">
               {joinedDays !== null ? <span>Joined {joinedDays} days ago</span> : null}
               <a
                 href={profileUrl}
@@ -361,31 +371,34 @@ export function UsageDashboard({
           </div>
         </div>
 
-        <div className="flex flex-wrap items-center gap-2">
+        <div className="grid grid-cols-3 gap-2 sm:flex sm:flex-wrap sm:items-center">
           <button
             type="button"
             onClick={handleRefresh}
             disabled={isRefreshing}
-            className="focus-ring inline-flex items-center gap-1.5 rounded-lg border border-[#e4e4e0] bg-white px-3 py-2 text-xs font-medium text-[#14120b] transition hover:border-[#14120b]/20 disabled:opacity-60"
+            aria-label={isRefreshing ? "Refreshing" : "Refresh data"}
+            className="focus-ring inline-flex min-h-[44px] items-center justify-center gap-1.5 rounded-lg border border-[#e4e4e0] bg-white px-3 py-2 text-xs font-medium text-[#14120b] transition hover:border-[#14120b]/20 disabled:opacity-60"
           >
             <RefreshCw className={cn("h-3.5 w-3.5", isRefreshing && "animate-spin")} />
-            {isRefreshing ? "Refreshing…" : "Refresh"}
+            <span className="hidden sm:inline">{isRefreshing ? "Refreshing…" : "Refresh"}</span>
           </button>
           <button
             type="button"
             onClick={() => setShowCustomize((v) => !v)}
-            className="focus-ring inline-flex items-center gap-1.5 rounded-lg border border-[#e4e4e0] bg-white px-3 py-2 text-xs font-medium text-[#14120b]"
+            aria-label={showCustomize ? "Hide chart controls" : "Show chart controls"}
+            className="focus-ring inline-flex min-h-[44px] items-center justify-center gap-1.5 rounded-lg border border-[#e4e4e0] bg-white px-3 py-2 text-xs font-medium text-[#14120b]"
           >
             <Settings2 className="h-3.5 w-3.5" />
-            {showCustomize ? "Hide controls" : "Customize"}
+            <span className="hidden sm:inline">{showCustomize ? "Hide controls" : "Customize"}</span>
           </button>
           <button
             type="button"
             onClick={handleExport}
-            className="focus-ring inline-flex items-center gap-1.5 rounded-lg border border-[#e4e4e0] bg-white px-3 py-2 text-xs font-medium text-[#14120b]"
+            aria-label="Export CSV"
+            className="focus-ring inline-flex min-h-[44px] items-center justify-center gap-1.5 rounded-lg border border-[#e4e4e0] bg-white px-3 py-2 text-xs font-medium text-[#14120b]"
           >
             <Download className="h-3.5 w-3.5" />
-            Export CSV
+            <span className="hidden sm:inline">Export CSV</span>
           </button>
         </div>
       </div>
@@ -397,18 +410,18 @@ export function UsageDashboard({
       ) : null}
 
       {billingReset ? (
-        <div className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-[#e4e4e0] bg-[#f7f7f4] px-4 py-3">
+        <div className="flex flex-col gap-2 rounded-xl border border-[#e4e4e0] bg-[#f7f7f4] px-4 py-3 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between sm:gap-3">
           <div className="flex items-center gap-2.5">
-            <Timer className="h-4 w-4 text-[#f54e00]" />
-            <div>
+            <Timer className="h-4 w-4 shrink-0 text-[#f54e00]" />
+            <div className="min-w-0">
               <p className="text-[10px] font-semibold uppercase tracking-[0.08em] text-[#989897]">
                 Usage resets
               </p>
               <p className="text-sm font-medium text-[#14120b]">{billingReset.dateLabel}</p>
             </div>
           </div>
-          <div className="text-right">
-            <p className="font-mono text-xl font-semibold tracking-tight text-[#14120b]">
+          <div className="sm:text-right">
+            <p className="font-mono text-lg font-semibold tracking-tight text-[#14120b] sm:text-xl">
               {billingReset.leftLabel}
             </p>
             <p className="text-[11px] text-[#6b6b66]">
@@ -418,7 +431,7 @@ export function UsageDashboard({
         </div>
       ) : null}
 
-      <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+      <div className="grid grid-cols-2 gap-3 sm:gap-4 xl:grid-cols-4">
         <StatCard
           label="Tokens"
           value={`${formatTokenCount(summary.totalTokens)} tokens`}
@@ -452,24 +465,26 @@ export function UsageDashboard({
           title="Usage graph"
           description="From your public cursor.com profile"
           action={
-            <div className="flex flex-wrap gap-1 rounded-lg border border-[#e4e4e0] bg-[#f7f7f4] p-0.5">
-              {visibleViews.map(({ id, label, icon: Icon }) => (
-                <button
-                  key={id}
-                  type="button"
-                  onClick={() => handleViewChange(id)}
-                  aria-pressed={view === id}
-                  className={cn(
-                    "focus-ring inline-flex items-center gap-1 rounded-md px-2.5 py-1.5 text-[11px] font-medium transition",
-                    view === id
-                      ? "bg-white text-[#14120b] shadow-sm"
-                      : "text-[#6b6b66] hover:text-[#14120b]",
-                  )}
-                >
-                  <Icon className="h-3 w-3" />
-                  {label}
-                </button>
-              ))}
+            <div className="scroll-x-touch -mx-1 w-full overflow-x-auto px-1 sm:mx-0 sm:w-auto sm:overflow-visible sm:px-0">
+              <div className="flex w-max gap-1 rounded-lg border border-[#e4e4e0] bg-[#f7f7f4] p-0.5 sm:flex-wrap">
+                {visibleViews.map(({ id, label, icon: Icon }) => (
+                  <button
+                    key={id}
+                    type="button"
+                    onClick={() => handleViewChange(id)}
+                    aria-pressed={view === id}
+                    className={cn(
+                      "focus-ring inline-flex min-h-[36px] shrink-0 items-center gap-1 rounded-md px-2.5 py-1.5 text-[11px] font-medium transition sm:px-2.5",
+                      view === id
+                        ? "bg-white text-[#14120b] shadow-sm"
+                        : "text-[#6b6b66] hover:text-[#14120b]",
+                    )}
+                  >
+                    <Icon className="h-3 w-3 shrink-0" />
+                    {label}
+                  </button>
+                ))}
+              </div>
             </div>
           }
         >
@@ -587,7 +602,7 @@ export function UsageDashboard({
         )}
       </div>
 
-      <p className="text-center text-[10px] text-[#989897]">
+      <p className="break-words text-center text-[10px] text-[#989897]">
         {dataSources.profile}
         {dataSources.billing ? ` · ${dataSources.billing}` : ""}
       </p>

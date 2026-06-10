@@ -30,7 +30,7 @@ export function DonutChart({
   let offset = 0;
 
   return (
-    <div className={cn("flex items-center gap-4", className)}>
+    <div className={cn("flex flex-col gap-4 sm:flex-row sm:items-center", className)}>
       <div className="relative shrink-0" style={{ width: size, height: size }}>
         <svg viewBox="0 0 100 100" className="h-full w-full -rotate-90" aria-hidden>
           <circle cx="50" cy="50" r={radius} fill="none" stroke="#f0f0ec" strokeWidth={stroke} />

@@ -39,50 +39,54 @@ function UsageBarChartInner({
     );
   }
 
-  const showEveryLabel = points.length <= 14;
+  const showEveryLabel = points.length <= 10;
+  const showValues = points.length <= 14;
+  const minChartWidth = Math.max(points.length * 28, 280);
 
   return (
-    <div
-      className={cn("flex items-end gap-1", className)}
-      style={{ height }}
-      role="img"
-      aria-label={`Usage chart, ${points.length} bars`}
-    >
-      {barLayout.map((point, index) => {
-        const showLabel = showEveryLabel || index % 2 === 0;
-        return (
-          <div
-            key={point.key}
-            className="flex min-w-0 flex-1 flex-col items-center justify-end gap-1"
-            title={`${point.label}: ${valueFormatter(point.value)}`}
-          >
-            {point.value > 0 && points.length <= 20 ? (
-              <span className="font-mono text-[9px] text-[#989897]">
-                {valueFormatter(point.value)}
-              </span>
-            ) : (
-              <span className="h-3" aria-hidden />
-            )}
+    <div className={cn("scroll-x-touch -mx-1 overflow-x-auto px-1", className)}>
+      <div
+        className="flex items-end gap-0.5 sm:gap-1"
+        style={{ height, minWidth: points.length > 12 ? minChartWidth : undefined }}
+        role="img"
+        aria-label={`Usage chart, ${points.length} bars`}
+      >
+        {barLayout.map((point, index) => {
+          const showLabel = showEveryLabel || index % 2 === 0;
+          return (
             <div
-              className="w-full max-w-6 rounded-t-sm"
-              style={{
-                height: point.barHeight,
-                backgroundColor: point.color ?? "#14120b",
-                opacity: point.value > 0 ? 1 : 0.35,
-                transition: `height ${animateMs}ms cubic-bezier(0.22, 1, 0.36, 1)`,
-                willChange: "height",
-              }}
-            />
-            {showLabel ? (
-              <span className="max-w-full truncate text-center text-[8px] text-[#989897]">
-                {point.label}
-              </span>
-            ) : (
-              <span className="h-2.5" aria-hidden />
-            )}
-          </div>
-        );
-      })}
+              key={point.key}
+              className="flex min-w-[22px] flex-1 flex-col items-center justify-end gap-0.5 sm:min-w-0 sm:gap-1"
+              title={`${point.label}: ${valueFormatter(point.value)}`}
+            >
+              {point.value > 0 && showValues ? (
+                <span className="hidden font-mono text-[9px] text-[#989897] sm:inline">
+                  {valueFormatter(point.value)}
+                </span>
+              ) : (
+                <span className="h-3" aria-hidden />
+              )}
+              <div
+                className="w-full max-w-6 rounded-t-sm"
+                style={{
+                  height: point.barHeight,
+                  backgroundColor: point.color ?? "#14120b",
+                  opacity: point.value > 0 ? 1 : 0.35,
+                  transition: `height ${animateMs}ms cubic-bezier(0.22, 1, 0.36, 1)`,
+                  willChange: "height",
+                }}
+              />
+              {showLabel ? (
+                <span className="max-w-full truncate text-center text-[7px] text-[#989897] sm:text-[8px]">
+                  {point.label}
+                </span>
+              ) : (
+                <span className="h-2.5" aria-hidden />
+              )}
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 }

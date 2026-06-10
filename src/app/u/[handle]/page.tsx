@@ -31,15 +31,15 @@ export default async function UserUsagePage({ params }: PageProps) {
 
   return (
     <div className="min-h-screen">
-      <header className="border-b border-[#e4e4e0] bg-white/80 backdrop-blur">
-        <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-4 px-4 py-3 md:px-6">
+      <header className="sticky top-0 z-40 border-b border-[#e4e4e0] bg-white/95 backdrop-blur safe-px">
+        <div className="mx-auto flex max-w-7xl flex-col gap-3 px-4 py-3 sm:flex-row sm:items-center sm:justify-between md:px-6">
           <Link
             href="/"
-            className="text-sm font-semibold tracking-tight text-[#14120b] hover:underline"
+            className="shrink-0 text-sm font-semibold tracking-tight text-[#14120b] hover:underline"
           >
-            ← Cursor Usage Dashboard
+            ← Usage Dashboard
           </Link>
-          <div className="w-full max-w-xs md:w-72">
+          <div className="w-full sm:max-w-xs md:max-w-sm">
             <HandleSearchForm defaultHandle={handle} />
           </div>
         </div>

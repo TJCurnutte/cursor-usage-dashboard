@@ -35,7 +35,7 @@ export function HandleSearchForm({
       <label htmlFor="handle" className="sr-only">
         Cursor handle
       </label>
-      <div className="flex gap-2">
+      <div className="flex flex-col gap-2 sm:flex-row">
         <div className="relative min-w-0 flex-1">
           <span className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-sm text-[#989897]">
             @
@@ -47,15 +47,16 @@ export function HandleSearchForm({
             placeholder="yourhandle"
             autoComplete="off"
             spellCheck={false}
-            className="focus-ring w-full rounded-lg border border-[#e4e4e0] bg-white py-3 pl-8 pr-3 font-mono text-sm text-[#14120b] placeholder:text-[#989897]"
+            enterKeyHint="go"
+            className="focus-ring w-full rounded-lg border border-[#e4e4e0] bg-white py-3.5 pl-8 pr-3 font-mono text-base text-[#14120b] placeholder:text-[#989897] sm:py-3 sm:text-sm"
           />
         </div>
         <button
           type="submit"
-          className="focus-ring inline-flex shrink-0 items-center gap-1.5 rounded-lg bg-[#14120b] px-4 py-3 text-sm font-medium text-white transition hover:bg-[#14120b]/90"
+          className="focus-ring inline-flex min-h-[44px] w-full shrink-0 items-center justify-center gap-1.5 rounded-lg bg-[#14120b] px-4 py-3 text-sm font-medium text-white transition hover:bg-[#14120b]/90 sm:w-auto"
         >
           <Search className="h-4 w-4" />
-          View
+          View dashboard
         </button>
       </div>
       {error ? <p className="text-xs text-[#991b1b]">{error}</p> : null}

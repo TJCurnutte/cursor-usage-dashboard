@@ -3,12 +3,12 @@ import Link from "next/link";
 export default function SecurityDocsPage() {
   return (
     <div className="min-h-screen">
-      <header className="border-b border-[#e4e4e0] bg-white px-4 py-4 md:px-6">
+      <header className="border-b border-[#e4e4e0] bg-white px-4 py-4 safe-px md:px-6">
         <Link href="/" className="text-sm font-semibold text-[#14120b] hover:underline">
           ← Back
         </Link>
       </header>
-      <article className="prose prose-sm mx-auto max-w-2xl px-4 py-12 md:px-6">
+      <article className="mx-auto max-w-2xl px-4 py-8 safe-px sm:py-12 md:px-6">
         <h1 className="text-2xl font-semibold text-[#14120b]">Security</h1>
 
         <section className="mt-8 space-y-4 text-sm leading-relaxed text-[#6b6b66]">

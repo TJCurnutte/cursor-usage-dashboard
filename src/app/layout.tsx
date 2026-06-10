@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 
 import { AnalyticsProvider } from "@/components/analytics-provider";
@@ -22,6 +22,12 @@ export const metadata: Metadata = {
     title: "Cursor Usage Dashboard",
     description: "View tokens, agents, activity, and billing from your Cursor profile.",
   },
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover",
 };
 
 export default function RootLayout({

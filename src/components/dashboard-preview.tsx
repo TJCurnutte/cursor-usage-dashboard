@@ -34,20 +34,17 @@ export function DashboardPreview({
   return (
     <Link
       href={`/u/${account.handle}`}
-      className={cn(
-        "group block focus-ring rounded-2xl outline-offset-4",
-        className,
-      )}
+      className={cn("group block focus-ring rounded-2xl outline-offset-4", className)}
       aria-label={`View live dashboard for @${account.handle}`}
     >
-      <div className="overflow-hidden rounded-2xl border border-[#e4e4e0] bg-white shadow-[0_24px_80px_-24px_rgba(20,18,11,0.18)] transition duration-300 group-hover:-translate-y-1 group-hover:shadow-[0_32px_96px_-24px_rgba(20,18,11,0.22)]">
-        <div className="flex items-center gap-2 border-b border-[#e4e4e0] bg-[#f7f7f4] px-4 py-2.5">
-          <div className="flex gap-1.5">
+      <div className="overflow-hidden rounded-2xl border border-[#e4e4e0] bg-white shadow-[0_24px_80px_-24px_rgba(20,18,11,0.18)] transition duration-300 sm:group-hover:-translate-y-1 sm:group-hover:shadow-[0_32px_96px_-24px_rgba(20,18,11,0.22)]">
+        <div className="flex items-center gap-2 border-b border-[#e4e4e0] bg-[#f7f7f4] px-3 py-2.5 sm:px-4">
+          <div className="hidden shrink-0 gap-1.5 sm:flex">
             <span className="h-2.5 w-2.5 rounded-full bg-[#ff5f57]" />
             <span className="h-2.5 w-2.5 rounded-full bg-[#febc2e]" />
             <span className="h-2.5 w-2.5 rounded-full bg-[#28c840]" />
           </div>
-          <div className="min-w-0 flex-1 rounded-md border border-[#e4e4e0] bg-white px-3 py-1 text-center font-mono text-[10px] text-[#989897]">
+          <div className="min-w-0 flex-1 truncate rounded-md border border-[#e4e4e0] bg-white px-2 py-1 text-center font-mono text-[9px] text-[#989897] sm:px-3 sm:text-[10px]">
             usage.neural-forge.io/u/{account.handle}
           </div>
         </div>
@@ -146,7 +143,7 @@ export function DashboardPreview({
           </div>
         </div>
 
-        <div className="border-t border-[#e4e4e0] bg-[#fafaf8] px-4 py-2.5 text-center text-[10px] font-medium text-[#f54e00] opacity-0 transition group-hover:opacity-100">
+        <div className="border-t border-[#e4e4e0] bg-[#fafaf8] px-4 py-2.5 text-center text-[10px] font-medium text-[#f54e00] sm:opacity-0 sm:transition sm:group-hover:opacity-100">
           View live dashboard →
         </div>
       </div>
