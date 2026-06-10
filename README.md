@@ -6,7 +6,9 @@ Not affiliated with Cursor.
 
 ## Live demo
 
-Enter any public handle at the root page, e.g. `/u/trump`.
+**https://cursor-usage-dashboard-silk.vercel.app**
+
+Enter any public handle, e.g. [/u/trump](https://cursor-usage-dashboard-silk.vercel.app/u/trump).
 
 ## Quick start
 
