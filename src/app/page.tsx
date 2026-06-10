@@ -1,13 +1,43 @@
 import Link from "next/link";
 import { ArrowRight, Code2, Shield } from "lucide-react";
+import {
+  fetchCursorProfile,
+  profileToSnapshot,
+} from "@cursor-usage/core";
 
+import { DashboardPreview } from "@/components/dashboard-preview";
 import { HandleSearchForm } from "@/components/handle-search-form";
 
-export default function HomePage() {
+const DEMO_HANDLE = process.env.DEMO_HANDLE ?? "trump";
+
+export default async function HomePage() {
+  let demoSnapshot = profileToSnapshot(DEMO_HANDLE, {
+    handle: DEMO_HANDLE,
+    displayName: "Demo User",
+    stats: {
+      longestStreak: 0,
+      currentStreak: 0,
+      agentsLocal: 0,
+      agentsCloud: 0,
+      longestAgentSeconds: 0,
+    },
+    activityCounts: [],
+    tokensOverTime: [],
+    agentsOverTime: [],
+    topModels: [],
+  });
+
+  try {
+    const profile = await fetchCursorProfile(DEMO_HANDLE);
+    demoSnapshot = profileToSnapshot(DEMO_HANDLE, profile);
+  } catch {
+    // fallback empty snapshot above
+  }
+
   return (
     <div className="min-h-screen">
       <header className="border-b border-[#e4e4e0] bg-white/80 backdrop-blur">
-        <div className="mx-auto flex max-w-5xl items-center justify-between px-4 py-4 md:px-6">
+        <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-4 md:px-6">
           <p className="text-sm font-semibold tracking-tight text-[#14120b]">
             Cursor Usage Dashboard
           </p>
@@ -23,34 +53,48 @@ export default function HomePage() {
         </div>
       </header>
 
-      <main className="mx-auto max-w-5xl px-4 py-16 md:px-6">
-        <div className="max-w-2xl">
-          <p className="text-[10px] font-semibold uppercase tracking-[0.14em] text-[#989897]">
-            Open source · profile + billing
-          </p>
-          <h1 className="mt-3 text-4xl font-semibold tracking-tight text-[#14120b] md:text-5xl">
-            Your Cursor usage, visualized
-          </h1>
-          <p className="mt-4 text-base leading-relaxed text-[#6b6b66]">
-            Enter any public Cursor handle to see tokens, activity, agents, and
-            models. Billing pools require the local sync CLI or a self-hosted
-            deploy — your Cursor token never touches our servers on the hosted
-            version.
-          </p>
+      <main className="mx-auto max-w-6xl px-4 py-12 md:px-6 md:py-16">
+        <div className="grid items-center gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)] lg:gap-12">
+          <div>
+            <p className="text-[10px] font-semibold uppercase tracking-[0.14em] text-[#989897]">
+              Open source · profile + billing
+            </p>
+            <h1 className="mt-3 text-4xl font-semibold tracking-tight text-[#14120b] md:text-5xl">
+              Your Cursor usage, visualized
+            </h1>
+            <p className="mt-4 max-w-xl text-base leading-relaxed text-[#6b6b66]">
+              Enter any public Cursor handle to see tokens, activity, agents, and
+              models. Billing pools require the local sync CLI or a self-hosted
+              deploy — your Cursor token never touches our servers on the hosted
+              version.
+            </p>
+
+            <div className="mt-8 max-w-md">
+              <HandleSearchForm />
+            </div>
+
+            <p className="mt-4 text-xs text-[#989897]">
+              Live preview from{" "}
+              <Link
+                href={`/u/${DEMO_HANDLE}`}
+                className="font-medium text-[#f54e00] hover:underline"
+              >
+                @{DEMO_HANDLE}
+              </Link>
+            </p>
+          </div>
+
+          <DashboardPreview snapshot={demoSnapshot} className="mx-auto w-full max-w-lg lg:max-w-none" />
         </div>
 
-        <div className="mt-10 max-w-xl">
-          <HandleSearchForm />
-        </div>
-
-        <div className="mt-16 grid gap-4 md:grid-cols-3">
+        <div className="mt-20 grid gap-4 md:grid-cols-3">
           <Feature
             title="Public profile"
             body="Tokens, streaks, agents, and model breakdown from cursor.com/@handle."
           />
           <Feature
             title="Billing via CLI"
-            body="npx cursor-usage-sync reads your local Cursor login — token stays on your machine."
+            body="npm run sync reads your local Cursor login — token stays on your machine."
           />
           <Feature
             title="Self-host"
