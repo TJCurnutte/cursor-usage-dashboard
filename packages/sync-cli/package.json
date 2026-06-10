@@ -1,0 +1,11 @@
+{
+  "name": "cursor-usage-sync",
+  "version": "0.1.0",
+  "type": "module",
+  "bin": {
+    "cursor-usage-sync": "./bin/cursor-usage-sync.js"
+  },
+  "dependencies": {
+    "@cursor-usage/core": "file:../core"
+  }
+}
