@@ -6,9 +6,11 @@ Not affiliated with Cursor.
 
 ## Live demo
 
-**https://cursor-usage-dashboard-silk.vercel.app**
+**https://usage.neural-forge.io**
 
-Enter any public handle, e.g. [/u/trump](https://cursor-usage-dashboard-silk.vercel.app/u/trump).
+Also: [cursor-usage-dashboard-silk.vercel.app](https://cursor-usage-dashboard-silk.vercel.app)
+
+Enter any public handle, e.g. [/u/trump](https://usage.neural-forge.io/u/trump).
 
 ## Quick start
 
