@@ -20,7 +20,6 @@ import {
   RefreshCw,
   Settings2,
   Sparkles,
-  Terminal,
   Timer,
   Users,
 } from "lucide-react";
@@ -389,25 +388,6 @@ export function UsageDashboard({
           </button>
         </div>
       </div>
-
-      {!billingAvailable ? (
-        <div className="flex flex-wrap items-start gap-3 rounded-xl border border-[#fde8d8] bg-[#fff7ed] px-4 py-3">
-          <Terminal className="mt-0.5 h-4 w-4 shrink-0 text-[#f54e00]" />
-          <div className="min-w-0 flex-1 text-xs leading-relaxed text-[#9a3412]">
-            <p className="font-semibold">Profile only on hosted mode</p>
-            <p className="mt-1">
-              Billing pools need the local sync CLI or a self-hosted deploy. Run{" "}
-              <code className="rounded bg-white/80 px-1 font-mono">
-                npm run sync -- {handle}
-              </code>{" "}
-              on a machine where you&apos;re logged into Cursor.
-            </p>
-            <Link href="/docs/security" className="mt-2 inline-block font-medium underline">
-              Security docs
-            </Link>
-          </div>
-        </div>
-      ) : null}
 
       {refreshError ? (
         <p className="rounded-xl border border-[#fecaca] bg-[#fef2f2] px-4 py-3 text-xs text-[#991b1b]">
