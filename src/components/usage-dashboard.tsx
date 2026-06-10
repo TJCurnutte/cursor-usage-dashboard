@@ -27,6 +27,7 @@ import { UsageBarChart } from "@/components/charts/usage-bar-chart";
 import { DonutChart } from "@/components/charts/donut-chart";
 import { HorizontalBarChart } from "@/components/charts/horizontal-bar-chart";
 import { cn } from "@/lib/cn";
+import { trackUsageEvent } from "@/lib/analytics";
 import type {
   CursorUsageSnapshot,
   UsageChartView,
@@ -280,6 +281,7 @@ export function UsageDashboard({
       }
       setSnapshot(payload as CursorUsageSnapshot);
       setNow(Date.now());
+      void trackUsageEvent({ eventType: "refresh", handle });
     } catch (error) {
       setRefreshError(error instanceof Error ? error.message : "Refresh failed");
     } finally {

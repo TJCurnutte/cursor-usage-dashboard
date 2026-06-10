@@ -5,6 +5,7 @@ import { useState } from "react";
 import { Search } from "lucide-react";
 
 import { cn } from "@/lib/cn";
+import { trackUsageEvent } from "@/lib/analytics";
 
 export function HandleSearchForm({
   defaultHandle = "",
@@ -25,6 +26,7 @@ export function HandleSearchForm({
       return;
     }
     setError(null);
+    void trackUsageEvent({ eventType: "handle_search", handle: normalized });
     router.push(`/u/${normalized}`);
   };
 
